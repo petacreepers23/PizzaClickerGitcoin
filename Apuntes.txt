@@ -1,0 +1,16 @@
+1- poner parametros en unos config files, como links a la red y demás. indepoendientemente de hardhat o solidity...
+2- los params se pueden encontrar en docs.oasis.dev
+3- npx o npm es necesario
+	Con Remix:
+	1 - crear en solidity el contract
+	2 - conectar remix a Metamask
+	3 - Compilar el contrato
+	4 - elegir el entorno (testnet o lo que sea)
+	5 - deploy
+4- si no queremos usar la testnet hay un docker para ejecutar la red de forma local
+
+Emerald:
+	Ememeald mainnet, rpc y chain id -> meterlo al metamask para la real
+	Tambien hay una testnet: docs.oasis.dev > emerald paratime > testnet > integrar al metamask
+	Tutorial:
+	https://docs.oasis.dev/general/developer-resources/emerald-paratime/writing-dapps-on-emerald/
