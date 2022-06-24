@@ -17,10 +17,12 @@ class CLICKERTEST_API AClickerTestGameModeBase : public AGameModeBase
 public:
 
 	AClickerTestGameModeBase();
+	
 
 	virtual ~AClickerTestGameModeBase() = default;
 	
 	int32 get_global_pizzas();
 	void set_global_pizzas(int32 nuevas);
 	void inc_global_pizzas();
+	void inc_global_pizzas(int32 nuevas);
 };

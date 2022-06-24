@@ -18,6 +18,7 @@ public:
 
 	AClickerGameStateBase();
 	virtual ~AClickerGameStateBase() = default;
-
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	int32 pizzas;
 };

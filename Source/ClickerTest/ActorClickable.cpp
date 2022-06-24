@@ -22,10 +22,10 @@ void AActorClickable::NotifyActorOnClicked(FKey ButtonPressed) {
 
 	GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->inc_global_pizzas();
 
-	if (GEngine) {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, 
-			FString::Printf(TEXT("Pizzas: %d"), GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->get_global_pizzas()));
-	}
+	//if (GEngine) {
+	//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, 
+	//		FString::Printf(TEXT("Pizzas: %d"), GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->get_global_pizzas()));
+	//}
 
 	//TODO: get gamemode add pizzas o lo q sea
 }
