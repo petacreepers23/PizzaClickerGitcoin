@@ -21,14 +21,21 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 	//virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 	
-	
+	/*
+	* Activate the automatic clicker so it will start clicking every second.
+	* WARNING: To execute this function the class must be spawned or it will
+	* crash.
+	* GetWorldTimerManager() will get a null pointer.
+	*/
+	void Activate();
 
 
-
-
+	bool IsActivated();
+	int32 GetPrice();
+	void UpdatePrice();
 
 
 	/*
@@ -39,26 +46,19 @@ public:
 	*/
 	void MultiplicateBaseSpeed(float multiplicator);
 
-	
-	//virtual void IncrementInstance(int number) ;
-
-
-	UFUNCTION()
-	void Click();
-
 	/*
 	* Calculate de number of total clicks per second
 	*/
 	int CalculateClick();
+
+
+	int AddNumberOfInstances(int32 n);
+
+	int32 GetNumberOfInstances();
+
 	
-	void AddNumberOfInstances(int32 n);
 
-private:
-	FTimerHandle TimerHandle;
-
-
-
-
+protected:
 	// important data
 	UPROPERTY(EditAnywhere)
 		FName Name;
@@ -67,20 +67,36 @@ private:
 		FName Description;
 
 	UPROPERTY(EditAnywhere)
-		uint32 Price;
+		uint32 Price {
+		20
+	};
 
 	UPROPERTY(EditAnywhere)
-		float PriceMultiplier{1.15};
+		float PriceMultiplier{ 1.15 };
 
 	UPROPERTY(EditAnywhere)
-		int32 BaseClickSpeed {10};
+		int32 BaseClickSpeed {1};
 
 	UPROPERTY(VisibleAnywhere)
-		int32 NumerOfInstances{1};
+		int32 NumerOfInstances {
+		0
+	};
 
 	//TODO: this will overflow, some day....
 	UPROPERTY(EditAnywhere)
-		int64 NumerOfTotalClicks {0};
+		int64 NumerOfTotalClicks {
+		0
+	};
+
+	UPROPERTY(EditAnywhere)
+		bool Activated{ false };
+
+	UFUNCTION()
+	void Click();
+private:
+	FTimerHandle TimerHandle;
+
+
 
 
 

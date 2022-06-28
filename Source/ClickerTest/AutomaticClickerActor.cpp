@@ -9,8 +9,8 @@
 AAutomaticClickerActor::AAutomaticClickerActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	//PrimaryActorTick.bCanEverTick = true;
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("automatic clicker constructed!"));
 }
 
 // Called when the game starts or when spawned
@@ -19,19 +19,50 @@ void AAutomaticClickerActor::BeginPlay()
 	Super::BeginPlay();
 
 	
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AAutomaticClickerActor::Click, 1.0f, true,  0.5f);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("automatic clicker activated!"));
 
+	//GetWorldTimerManager().SetTimer(TimerHandle, this, &AAutomaticClickerActor::Click, 1.0f, true, 0.5f);
 	
 }
 
 // Called every frame
-void AAutomaticClickerActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	
-	
+//void AAutomaticClickerActor::Tick(float DeltaTime)
+//{
+//	Super::Tick(DeltaTime);
+//	
+//	
+//
+//}
 
+void AAutomaticClickerActor::Activate()
+{
+	if (Activated == false) {
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+			FString::Printf(TEXT("Activado")));
+		GetWorldTimerManager().SetTimer(TimerHandle, this, &AAutomaticClickerActor::Click, 1.0f, true, 0.5f);
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
+		FString::Printf(TEXT("No Activado")));
+	Activated = true;
 }
+
+bool AAutomaticClickerActor::IsActivated()
+{
+	return Activated;
+}
+
+int32 AAutomaticClickerActor::GetPrice()
+{
+	return Price;
+}
+
+void AAutomaticClickerActor::UpdatePrice()
+{
+	Price = (Price* PriceMultiplier) + 0.5f;
+}
+
+
+
 
 
 //void AAutomaticClickerActor::NotifyActorOnClicked(FKey ButtonPressed) {
@@ -76,7 +107,15 @@ int AAutomaticClickerActor::CalculateClick()
 	return ClickSpeed * NumerOfInstances;
 }
 
-void AAutomaticClickerActor::AddNumberOfInstances(int32 n)
+int AAutomaticClickerActor::AddNumberOfInstances(int32 n)
 {
 	NumerOfInstances += n;
+	return NumerOfInstances;
 }
+
+int32 AAutomaticClickerActor::GetNumberOfInstances()
+{
+	return NumerOfInstances;
+}
+
+

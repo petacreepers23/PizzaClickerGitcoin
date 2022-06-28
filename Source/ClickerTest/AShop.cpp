@@ -8,14 +8,17 @@
 AAShop::AAShop()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 // Called when the game starts or when spawned
 void AAShop::BeginPlay()
 {
 	Super::BeginPlay();
+	ClickerManager = GetWorld()->SpawnActor<AClickerManager>(AClickerManager::StaticClass());
+
+	// activate here so tick will not execute earlier than BeginPlay, and the ClickerManager is not nullptr.
+	PrimaryActorTick.bCanEverTick = true;
 	
 }
 
@@ -26,33 +29,48 @@ void AAShop::Tick(float DeltaTime)
 
 }
 
-void AAShop::addBuilding(BuildingType Type)
+void AAShop::ApplyUpgrade(float Multiplier)
 {
-	AAutomaticClickerActor* AutomaticClicker;
-	if(Type == BuildingType::Pizzero)
-	{
-		AutomaticClicker = NewObject<APizzero>();
-	}
-	
-	Buildings.Add(Type, AutomaticClicker);
+	return ClickerManager->ApplyUpgrade(Multiplier);
 }
 
-bool AAShop::BuyBuilding(int32 CurrentClicks, int32 Price, BuildingType Type, int32 Quantity)
+int32 AAShop::GetPrice(BuildingType Type)
 {
-	/*int32 CurrentClicks = GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->get_global_pizzas();*/
-	if ( (CurrentClicks < Price) && (!Buildings.Contains(Type) ) ) {
-		return false;
+	
+	//if (ClickerManager == nullptr) {
+	//	return 0;
+
+	//}	
+	return ClickerManager->GetPrice(Type);
+}
+
+
+
+int32 AAShop::BuyBuilding(int32 CurrentClicks, BuildingType Type, int32 Quantity)
+{
+	//int32 CurrentClicks = GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->get_global_pizzas();
+
+	int32 Price = ClickerManager->GetPrice(Type);
+	if ( CurrentClicks < Price)   {
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Pobreee"));
+		return ClickerManager->GetNumberOfInstances(Type);
 	}
-	Buildings[Type]->AddNumberOfInstances(Quantity);
-	return true;
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("BUY in SHOP"));
+	GetWorld()->GetAuthGameMode<AClickerTestGameModeBase>()->inc_global_pizzas(-1 * Price);
+	UE_LOG(LogTemp, Warning, TEXT("Price %d"), Price);
+
+	// call to do operation.
+	
+	return ClickerManager->BuyBuilding(Type, Quantity);
 }
 
 bool AAShop::SellBuilding(int32 Price, BuildingType Type, int32 Quantity)
 {
-	if ( !Buildings.Contains(Type) ) {
-		return false;
-	}
-	Buildings[Type]->AddNumberOfInstances(Quantity);
+	//if ( !Buildings.Contains(Type) ) {
+	//	return false;
+	//}
+	//Buildings[Type]->AddNumberOfInstances(Quantity);
 	return true;
 }
 

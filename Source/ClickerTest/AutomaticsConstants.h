@@ -7,6 +7,11 @@
 /**
  * 
  */
-enum class  BuildingType {
-	Pizzero
+UENUM(BlueprintType)
+enum class  BuildingType: uint8 {
+	Baker = 0,
+	Bar = 1,
+	Franchise = 2,
+
+	Pizzero = 3
 };

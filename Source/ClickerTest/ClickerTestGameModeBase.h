@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
-
+#include "ClickerManager.h"
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "ClickerTestGameModeBase.generated.h"
@@ -25,4 +25,8 @@ public:
 	void set_global_pizzas(int32 nuevas);
 	void inc_global_pizzas();
 	void inc_global_pizzas(int32 nuevas);
+
+private:
+	UPROPERTY(VisibleAnywhere)
+	AClickerManager* a;
 };

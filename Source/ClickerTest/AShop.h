@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "ClickerManager.h"
 #include "AutomaticsConstants.h"
 #include "AutomaticClickerActor.h"
 #include "CoreMinimal.h"
@@ -28,30 +29,22 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// used firt time 
-	//void makeBuilding();
+	UFUNCTION(BlueprintCallable)
+	void ApplyUpgrade(float Multiplier);
 
 
 
+	UFUNCTION(BlueprintCallable)
+	int32 GetPrice(BuildingType Type);
 
-
-
-
-
-
-
-
-	void addBuilding(BuildingType Type);
-
-
-
-
-	bool BuyBuilding(int32 CurrentClicks, int32 Price, BuildingType Type, int32 Quantity);
+	UFUNCTION(BlueprintCallable)
+	int32 BuyBuilding(int32 CurrentClicks, BuildingType Type, int32 Quantity);
 	//bool BuyBuilding(int32 CurrentClicks, tipe of object, int32 Quantity=1);
 
 	bool SellBuilding(int32 Price, BuildingType Type, int32 Quantity);
 private:
-	TMap<BuildingType, AAutomaticClickerActor*> Buildings;
+	UPROPERTY(EditAnywhere)
+		AClickerManager* ClickerManager;
 
 
 };
