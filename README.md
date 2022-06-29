@@ -2,7 +2,7 @@
 
 ---
 
-See a presentetion here!
+See a presentation here!
 
 https://www.youtube.com/watch?v=_b-ZZvnOtSg
 
