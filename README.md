@@ -1,4 +1,13 @@
 # PizzaClickerGitcoin
+
+---
+
+See a presentetion here!
+
+https://www.youtube.com/watch?v=_b-ZZvnOtSg
+
+---
+
 Game submission for gitcoin
 
 You have heard about cookie clicker? Probably yes, is an adictive click game in which you click to earn cookies. Sadly that game has a couple of problems that the blockchain can solve for this game, one, hability to spend paid content to improve your progress, then a method to guarantee all your achievements in a secure form.
